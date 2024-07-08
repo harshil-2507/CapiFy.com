@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Budget Tracker</h1>
+    </header>
+    <main>
+        <section class="budget-input">
+            <h2>Set Your Budget</h2>
+            <form id="budget-form">
+                <label for="total-budget">Total Budget:</label>
+                <input type="number" id="total-budget" required>
+                <button type="submit">Set Budget</button>
+            </form>
+        </section>
+        <section class="ideal-plan" id="ideal-plan-section" style="display: none;">
+            <h2>Ideal Budget Plan</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody id="ideal-plan">
+                    <!-- Ideal budget items will be added here dynamically -->
+                </tbody>
+            </table>
+        </section>
+        <section class="add-expense" id="add-expense-section" style="display: none;">
+            <h2>Add Expense</h2>
+            <form id="expense-form">
+                <label for="expense-name">Expense Name:</label>
+                <input type="text" id="expense-name" required>
+                <label for="expense-amount">Amount:</label>
+                <input type="number" id="expense-amount" required>
+                <button type="submit">Add Expense</button>
+            </form>
+        </section>
+        <section class="budget-comparison" id="budget-comparison-section" style="display: none;">
+            <h2>Budget Comparison</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Ideal Amount</th>
+                        <th>Actual Amount</th>
+                        <th>Difference</th>
+                    </tr>
+                </thead>
+                <tbody id="comparison-list">
+                    <!-- Comparison items will be added here dynamically -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
