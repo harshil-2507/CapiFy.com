@@ -15,16 +15,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let idealPlan = {};
     let actualExpenses = {};
+    let categories = [];
 
-    // Mock categories (replace with actual categories if known)
-    const categories = ['Food', 'Transportation', 'Utilities', 'Entertainment'];
-
-    // Populate category select
-    populateCategorySelect(categories);
+    // Fetch categories from the Alpha Vantage API (Mocked for demonstration)
+    async function fetchCategories() {
+        try {
+            // Mocking data for categories
+            const data = {
+                'Rank A: Real-Time Performance': {
+                    'Food': 'Food Data',
+                    'Transportation': 'Transportation Data',
+                    'Utilities': 'Utilities Data',
+                    'Entertainment': 'Entertainment Data'
+                }
+            };
+            categories = Object.keys(data['Rank A: Real-Time Performance']);
+            populateCategorySelect(categories);
+        } catch (error) {
+            console.error('Error fetching categories:', error);
+        }
+    }
 
     function populateCategorySelect(categories) {
         expenseCategorySelect.innerHTML = categories.map(category => `<option value="${category}">${category}</option>`).join('');
     }
+
+    fetchCategories();
 
     budgetForm.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -52,8 +68,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         actualExpenses[expenseCategory] += expenseAmount;
 
-        displayComparison();
-        expenseForm.reset();
+        // Check if all categories have been filled
+        const filledCategories = Object.keys(actualExpenses);
+        if (filledCategories.length === categories.length) {
+            displayComparison();
+            expenseForm.reset();
+        }
     });
 
     function displayIdealPlan() {
@@ -72,10 +92,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function displayComparison() {
         comparisonList.innerHTML = '';
+        let totalDifference = 0;
         categories.forEach(category => {
             const idealAmount = idealPlan[category];
             const actualAmount = actualExpenses[category] || 0;
             const difference = actualAmount - idealAmount;
+            totalDifference += difference;
 
             const row = document.createElement('tr');
             const categoryCell = document.createElement('td');
@@ -92,12 +114,20 @@ document.addEventListener('DOMContentLoaded', () => {
             row.appendChild(differenceCell);
             comparisonList.appendChild(row);
         });
-        showPopupMessage();
+
+        // Show main popup based on total difference after all categories filled
+        setTimeout(() => {
+            if (totalDifference <= 0) {
+                showPopupMessage('Expenses are within budget!', '👍');
+            } else {
+                showPopupMessage('Expenses exceed budget!', '😟');
+            }
+        }, 500); // Adjust timing as needed
     }
 
-    function showPopupMessage() {
-        messageText.textContent = 'Expense added!';
-        messageEmoji.textContent = '🎉';
+    function showPopupMessage(text, emoji) {
+        messageText.textContent = text;
+        messageEmoji.textContent = emoji;
         messagePopup.classList.add('show');
         setTimeout(() => {
             messagePopup.classList.remove('show');

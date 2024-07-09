@@ -19,8 +19,9 @@
                 <button type="submit">Set Budget</button>
             </form>
         </section>
-        <section class="ideal-plan" id="ideal-plan-section" style="display: none;">
-            <h2>Ideal Budget Plan</h2>
+
+        <section id="ideal-plan-section" class="ideal-plan" style="display: none;">
+            <h2>Ideal Plan</h2>
             <table>
                 <thead>
                     <tr>
@@ -28,22 +29,23 @@
                         <th>Amount</th>
                     </tr>
                 </thead>
-                <tbody id="ideal-plan">
-                    <!-- Ideal budget items will be added here dynamically -->
-                </tbody>
+                <tbody id="ideal-plan"></tbody>
             </table>
         </section>
-        <section class="add-expense" id="add-expense-section" style="display: none;">
+
+        <section id="add-expense-section" class="add-expense" style="display: none;">
             <h2>Add Expense</h2>
             <form id="expense-form">
-                <label for="expense-name">Expense Name:</label>
-                <input type="text" id="expense-name" required>
+                <label for="expense-category">Category:</label>
+                <select id="expense-category"></select>
+
                 <label for="expense-amount">Amount:</label>
                 <input type="number" id="expense-amount" required>
                 <button type="submit">Add Expense</button>
             </form>
         </section>
-        <section class="budget-comparison" id="budget-comparison-section" style="display: none;">
+
+        <section id="budget-comparison-section" class="budget-comparison" style="display: none;">
             <h2>Budget Comparison</h2>
             <table>
                 <thead>
@@ -54,11 +56,14 @@
                         <th>Difference</th>
                     </tr>
                 </thead>
-                <tbody id="comparison-list">
-                    <!-- Comparison items will be added here dynamically -->
-                </tbody>
+                <tbody id="comparison-list"></tbody>
             </table>
         </section>
+
+        <div id="message-popup">
+            <div class="message"></div>
+            <div class="emoji"></div>
+        </div>
     </main>
     <script src="script.js"></script>
 </body>
